@@ -18,7 +18,7 @@ import { createTheme } from '@mui/material/styles';
 import { green, purple } from '@mui/material/colors';
 
 
-export default function Page() {
+export default function register() {
 
 
 
@@ -33,13 +33,13 @@ export default function Page() {
     const data = await res.json();
 
  
-    if(data.data== "valid"){
-      console.log("login is valid!")
+    if(data.data== "true"){
+      console.log("Registered")
 
       
     } else {
 
-      console.log("not valid  ")
+      console.log("not registered  ")
     }
   }
 
@@ -58,15 +58,16 @@ export default function Page() {
   
 		const data = new FormData(event.currentTarget);
 
-
-    let email = data.get('email')
-		let pass = data.get('pass')
-
+        let email = data.get('email')
+        let dob = data.get('dob')
+		    let pass = data.get('pass')
+    
     console.log("Sent email:" + email)
+    console.log("Sent dob:" + dob)
     console.log("Sent pass:" + pass)
 
 
-    runDBCallAsync(`http://localhost:3000/api/login?email=${email}&pass=${pass}`)
+    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&dob=${dob}`)
 
 
 
@@ -106,7 +107,7 @@ export default function Page() {
           
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Register
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -127,8 +128,18 @@ export default function Page() {
             label="Pass"
             type="pass"
             id="pass"
-            autoComplete="current-password"
           />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="dob"
+            label="dob"
+            type="text"
+            id="dob"
+            autoComplete=""
+          />
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
@@ -139,7 +150,7 @@ export default function Page() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Sign Up
           </Button>
 
 
@@ -153,7 +164,7 @@ export default function Page() {
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {"Already have an account? Log in"}
               </Link>
             </Grid>
           </Grid>
