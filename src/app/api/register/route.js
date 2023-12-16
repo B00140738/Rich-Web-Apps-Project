@@ -11,17 +11,24 @@ export async function GET(req, res) {
   console.log(email);
   console.log(pass);
   console.log(dob);
+
+  const bcrypt = require('bcrypt');
+  const saltRounds = 10;
+  const hash = bcrypt.hashSync(pass, saltRounds);
+
+
   // =================================================
   const { MongoClient } = require('mongodb');
-  const url = 'mongodb://root:example@localhost:27017/';
+  //const url = 'mongodb://root:example@localhost:27017/';
+  const url = 'mongodb+srv://b00140738:2guitars@cluster0.kxsyipy.mongodb.net/?retryWrites=true&w=majority';
   const client = new MongoClient(url);
   const dbName = 'app'; // database name
   await client.connect();
   console.log('Connected successfully to server');
   const db = client.db(dbName);
   const collection = db.collection('login'); // collection name
-  const findResult = await collection.insertOne({"username": email, "pass":
-  pass, "dob": dob});
+  const findResult = await collection.insertOne({"username": email,
+  "pass": hash, "dob": dob});
   let valid=true;
   //==========================================================
   // at the end of the process we need to send something back.

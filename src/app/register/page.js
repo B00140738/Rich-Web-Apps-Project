@@ -67,7 +67,7 @@ export default function register() {
     console.log("Sent pass:" + pass)
 
 
-    runDBCallAsync(`http://localhost:3000/api/register?email=${email}&pass=${pass}&dob=${dob}`)
+    runDBCallAsync(`api/register?email=${email}&pass=${pass}&dob=${dob}`)
 
 
 
